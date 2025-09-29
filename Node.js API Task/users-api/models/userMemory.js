@@ -1,22 +1,27 @@
 let users = [];
-let currentId = 1;
+let id = 1;
 
 export const getAll = () => users;
-export const getById = (id) => users.find(u => u.id === id);
+
+export const getById = (userId) => users.find((u) => u.id === userId);
+
 export const create = ({ name, email }) => {
-  const user = { id: currentId++, name, email };
-  users.push(user);
-  return user;
+  const newUser = { id: id++, name, email };
+  users.push(newUser);
+  return newUser;
 };
-export const update = (id, { name, email }) => {
-  const user = users.find(u => u.id === id);
+
+export const update = (userId, { name, email }) => {
+  const user = users.find((u) => u.id === userId);
   if (!user) return null;
   if (name) user.name = name;
   if (email) user.email = email;
   return user;
 };
-export const remove = (id) => {
-  const index = users.findIndex(u => u.id === id);
+
+export const remove = (userId) => {
+  const index = users.findIndex((u) => u.id === userId);
   if (index === -1) return null;
-  return users.splice(index, 1)[0];
+  const deleted = users.splice(index, 1);
+  return deleted[0];
 };
